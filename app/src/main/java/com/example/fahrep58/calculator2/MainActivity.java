@@ -10,32 +10,87 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.TextView;
 
 
-public class MainActivity extends Activity implements Buttons.OnFragmentInteractionListener{
+public class MainActivity extends Activity implements Buttons.OnFragmentInteractionListener, Output.OnFragmentInteractionListener, Solved.OnFragmentInteractionListener, ReturnButton.OnFragmentInteractionListener, Equations.OnFragmentInteractionListener
+{
+    private Buttons butt;
+    private Output out;
+    private Equations equation;
+    private InfixEvaluator infix;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
 
+        butt = new Buttons();
+        getFragmentManager().beginTransaction().add(R.id.containButtons, butt).commit();
 
+        equation = new Equations();
+        getFragmentManager().beginTransaction().add(R.id.containEquations, equation).commit();
 
-
-        Buttons keypad = new Buttons();
-        getFragmentManager().beginTransaction().add(R.id.gridView, keypad).commit();
+        out = new Output();
+        getFragmentManager().beginTransaction().add(R.id.containProb, out).commit();
 
     }
 
+    public void saveEquation(){
+
+    }
+
+    public void timeToSolve(String numbers){
+
+        infix = new InfixEvaluator();
+
+        infix.convertToPostfix(numbers);
+        //hides the buttons and the equation that was entered
+        getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.containButtons)).commit();
+        getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.containProb)).commit();
+
+        Solved solved = new Solved();
+        solved.setans1(numbers);
+        solved.setans2("\n" + infix.evaluatePostfix(infix.getExpression()));
+
+
+        getFragmentManager().beginTransaction().add(R.id.containButtons, solved).commit();
+
+        ReturnButton retbutt = new ReturnButton();
+        getFragmentManager().beginTransaction().add(R.id.containProb, retbutt).commit();
+
+
+
+
+
+    }
+    public void returnToKeypad(){
+
+        getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.containButtons)).commit();
+        getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.containProb)).commit();
+
+        getFragmentManager().beginTransaction().add(R.id.containButtons, butt).commit();
+        getFragmentManager().beginTransaction().add(R.id.containProb, out).commit();
+    }
     public void doStuff()
     {
 
     }
+
+    public void solveProblem()
+    {
+
+
+    }
+
+    public void updateProblem(String numbers)
+    {
+        TextView v = (TextView) getFragmentManager().findFragmentById(R.id.containProb).getView().findViewById(R.id.txtOutput);
+        v.setText(numbers);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -58,6 +113,9 @@ public class MainActivity extends Activity implements Buttons.OnFragmentInteract
         return super.onOptionsItemSelected(item);
     }
 
+    public void saveTheEquation(){
+
+    }
     /**
      * A placeholder fragment containing a simple view.
      */

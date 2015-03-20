@@ -13,12 +13,12 @@ import android.widget.Button;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Buttons.OnFragmentInteractionListener} interface
+ * {@link Output.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Buttons#newInstance} factory method to
+ * Use the {@link Output#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Buttons extends Fragment implements View.OnClickListener {
+public class Output extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -27,7 +27,6 @@ public class Buttons extends Fragment implements View.OnClickListener {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private String thequestion=" ";
 
     private OnFragmentInteractionListener mListener;
 
@@ -37,11 +36,11 @@ public class Buttons extends Fragment implements View.OnClickListener {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Buttons.
+     * @return A new instance of fragment Output.
      */
     // TODO: Rename and change types and number of parameters
-    public static Buttons newInstance(String param1, String param2) {
-        Buttons fragment = new Buttons();
+    public static Output newInstance(String param1, String param2) {
+        Output fragment = new Output();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -49,41 +48,17 @@ public class Buttons extends Fragment implements View.OnClickListener {
         return fragment;
     }
 
-    public void setTheMessage(String themessage){
-        thequestion = themessage;
+    public Output() {
+        // Required empty public constructor
     }
 
     public void onClick(View v){
         Button b = (Button)v;
-
-        String todo = b.getText().toString().toLowerCase();
-        if (todo.equals("solve"))
-        {
-            mListener.timeToSolve(thequestion);
+        if(b.getText().toString().equals("Clear Stats")) {
+            mListener.doStuff();
         }
-        else if (todo.equals("clear") ){
-            thequestion ="";
-            mListener.updateProblem("");
-        }
-        else if( todo.equals("backspace")){
-            if (!thequestion.equals(""))
-            {
-                thequestion = thequestion.substring(0,thequestion.length() -1);
-                mListener.updateProblem(thequestion);
-            }
-        }
-        else
-        {
-            thequestion += todo;
-            mListener.updateProblem(thequestion);
-        }
-
-
     }
 
-    public Buttons() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,32 +73,11 @@ public class Buttons extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_buttons, container, false);
-        ((Button)v.findViewById(R.id.button)).setOnClickListener(this);
-        ((Button)v.findViewById(R.id.button2)).setOnClickListener(this);
-        ((Button)v.findViewById(R.id.button3)).setOnClickListener(this);
-        ((Button)v.findViewById(R.id.button4)).setOnClickListener(this);
-        ((Button)v.findViewById(R.id.button5)).setOnClickListener(this);
-        ((Button)v.findViewById(R.id.button6)).setOnClickListener(this);
-        ((Button)v.findViewById(R.id.button7)).setOnClickListener(this);
-        ((Button)v.findViewById(R.id.button8)).setOnClickListener(this);
-        ((Button)v.findViewById(R.id.button9)).setOnClickListener(this);
-        ((Button)v.findViewById(R.id.button10)).setOnClickListener(this);
-        ((Button)v.findViewById(R.id.button11)).setOnClickListener(this);
-        ((Button)v.findViewById(R.id.button12)).setOnClickListener(this);
-        ((Button)v.findViewById(R.id.button13)).setOnClickListener(this);
-        ((Button)v.findViewById(R.id.button14)).setOnClickListener(this);
-        ((Button)v.findViewById(R.id.button15)).setOnClickListener(this);
-        ((Button)v.findViewById(R.id.button16)).setOnClickListener(this);
-        ((Button)v.findViewById(R.id.button17)).setOnClickListener(this);
-        ((Button)v.findViewById(R.id.button18)).setOnClickListener(this);
-        ((Button)v.findViewById(R.id.button19)).setOnClickListener(this);
-        ((Button)v.findViewById(R.id.button20)).setOnClickListener(this);
-        ((Button)v.findViewById(R.id.button21)).setOnClickListener(this);
-        ((Button)v.findViewById(R.id.button22)).setOnClickListener(this);
-
+        View v = inflater.inflate(R.layout.fragment_output, container, false);
 
         return v;
+
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -160,8 +114,9 @@ public class Buttons extends Fragment implements View.OnClickListener {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void updateProblem(String numbers);
-        public void timeToSolve(String numbers);
+
+
+        public void doStuff();
     }
 
 }
