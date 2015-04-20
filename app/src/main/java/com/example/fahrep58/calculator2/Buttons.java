@@ -72,10 +72,13 @@ public class Buttons extends Fragment implements View.OnClickListener {
                 mListener.updateProblem(thequestion);
             }
         }
+        else if( todo.equals("logout")){
+            mListener.logoutuser();
+        }
         else
         {
             thequestion += todo;
-            mListener.updateProblem(thequestion);
+            mListener.updateProblem(todo);
         }
 
 
@@ -121,6 +124,7 @@ public class Buttons extends Fragment implements View.OnClickListener {
         ((Button)v.findViewById(R.id.button20)).setOnClickListener(this);
         ((Button)v.findViewById(R.id.button21)).setOnClickListener(this);
         ((Button)v.findViewById(R.id.button22)).setOnClickListener(this);
+        ((Button)v.findViewById(R.id.button26)).setOnClickListener(this);
 
 
         return v;
@@ -162,6 +166,7 @@ public class Buttons extends Fragment implements View.OnClickListener {
         // TODO: Update argument type and name
         public void updateProblem(String numbers);
         public void timeToSolve(String numbers);
+        public void logoutuser();
     }
 
 }

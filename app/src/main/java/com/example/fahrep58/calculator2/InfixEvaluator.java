@@ -203,7 +203,7 @@ public class InfixEvaluator {
                 if (test.equals(")"))
                 {
                     // do a try to catch a peek at an empty stack
-                    try{
+//                    try{
                         while (!(stack.peek().equals("(")))
                         {
                             if (output == (""))
@@ -215,7 +215,7 @@ public class InfixEvaluator {
                             }
                             //     System.out.println(") Match print all up to (: " + output);
                         }
-                    } catch (Exception ex){}
+//                    } catch (Exception ex){}
                     stack.pop();
                 }
 
@@ -230,7 +230,7 @@ public class InfixEvaluator {
 
                     if (priority == 1)
                     {
-                        try{
+//                        try{
                             while (!(stack.empty()) && !(stack.peek().equals("(")) )
                             {
                                 if (output == (""))
@@ -242,17 +242,17 @@ public class InfixEvaluator {
                                 }
                                 // System.out.println("Num Match prior 1: " + output);
                             }
-                        }
-                        catch (EmptyStackException ex)
-                        {
-
-                        }
+//                        }
+//                        catch (EmptyStackException ex)
+//                        {
+//
+//                        }
                     }
 
                     if (priority == 2)
                     {
-                        try
-                        {
+//                        try
+//                        {
                             while (!(stack.empty()) && !(stack.peek().equals("+")) && !(stack.peek().equals("-")) && !(stack.peek().equals("(")) )
                             {
                                 if (output == (""))
@@ -264,9 +264,9 @@ public class InfixEvaluator {
                                 }
                                 //   System.out.println("Num Match prior 2: " + output);
                             }
-                        }
-                        catch (Exception ex){
-                        }
+//                        }
+//                        catch (Exception ex){
+//                        }
                     }
 
 
@@ -277,8 +277,8 @@ public class InfixEvaluator {
 
 
             }
-            try
-            {
+//            try
+//            {
                 while (!(stack.empty()))
                 {
                     if (output == (""))
@@ -290,7 +290,7 @@ public class InfixEvaluator {
                     }
                     // System.out.println("final output " + output);
                 }
-            } catch (Exception ex){}
+//            } catch (Exception ex){}
 
             // sets expression, so it is available as a datamember
 

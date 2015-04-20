@@ -1,6 +1,8 @@
 package com.example.fahrep58.calculator2;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -8,17 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Equations.OnFragmentInteractionListener} interface
+ * {@link login.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Equations#newInstance} factory method to
+ * Use the {@link login#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Equations extends Fragment implements View.OnClickListener {
+public class login extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -28,10 +31,6 @@ public class Equations extends Fragment implements View.OnClickListener {
     private String mParam1;
     private String mParam2;
 
-    private String save1 = "";
-    private String save2 = "";
-    private String save3 = "";
-
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -40,11 +39,11 @@ public class Equations extends Fragment implements View.OnClickListener {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Equations.
+     * @return A new instance of fragment login.
      */
     // TODO: Rename and change types and number of parameters
-    public static Equations newInstance(String param1, String param2) {
-        Equations fragment = new Equations();
+    public static login newInstance(String param1, String param2) {
+        login fragment = new login();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -52,10 +51,7 @@ public class Equations extends Fragment implements View.OnClickListener {
         return fragment;
     }
 
-    public void onClick(View v) {
-
-    }
-    public Equations() {
+    public login() {
         // Required empty public constructor
     }
 
@@ -68,19 +64,60 @@ public class Equations extends Fragment implements View.OnClickListener {
         }
     }
 
+
+
+    public void onClick(View v){
+        Button b = (Button)v;
+
+
+
+
+
+        String todo = b.getText().toString().toLowerCase();
+        if (todo.equals("login"))
+        {
+            EditText user1 = (EditText) this.getView().findViewById(R.id.editText);
+            String user = user1.getText().toString();
+            EditText pass1 = (EditText) this.getView().findViewById(R.id.editText2);
+            String pass = pass1.getText().toString();
+            if (user.equals("") || pass.equals(""))
+            {
+                mListener.alertme("enter user/pass");
+            }else
+            {
+                mListener.trytologin(user, pass);
+            }
+
+        }
+        else if (todo.equals("register"))
+        {
+            EditText user1 = (EditText) this.getView().findViewById(R.id.editText);
+            String user = user1.getText().toString();
+            EditText pass1 = (EditText) this.getView().findViewById(R.id.editText2);
+            String pass = pass1.getText().toString();
+            if (user.equals("") || pass.equals(""))
+            {
+
+            }else {
+
+                mListener.trytoregister(user, pass);
+            }
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_login, container, false);
-        ((Button) v.findViewById(R.id.button27)).setOnClickListener(this);
+        ((Button) v.findViewById(R.id.button24)).setOnClickListener(this);
+        ((Button) v.findViewById(R.id.button25)).setOnClickListener(this);
+
+
         return v;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
 
-    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -111,7 +148,9 @@ public class Equations extends Fragment implements View.OnClickListener {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void saveEquation(String var, String number);
+        public void trytologin(String user, String pass);
+        public void trytoregister(String user, String pass);
+        public void alertme(String x);
     }
 
 }
